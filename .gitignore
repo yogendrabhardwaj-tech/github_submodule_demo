@@ -1,2 +1,6 @@
 __pycache__/
 *.pyc
+.venv/
+node_modules/
+local.settings.json
+.DS_Store

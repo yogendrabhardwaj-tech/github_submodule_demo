@@ -1,0 +1,5 @@
+/invoice   @<invoice-owner>
+/shipping  @<shipping-owner>
+/vendor    @<vendor-owner>
+/product   @<product-owner>
+/.github   @<repo-admin>
