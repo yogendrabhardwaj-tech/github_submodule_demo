@@ -21,3 +21,15 @@ def test_validate_echo_payload_rejects_invalid_metadata():
         validate_echo_payload({"message": "hello", "metadata": "bad"})
 
     assert error.value.code == "invalid_metadata"
+
+
+def test_validate_echo_payload_defaults_metadata_when_missing():
+    data = validate_echo_payload({"message": "hello"})
+    assert data == {"message": "hello", "metadata": {}}
+
+
+def test_validate_echo_payload_rejects_too_long_message():
+    with pytest.raises(AppError) as error:
+        validate_echo_payload({"message": "x" * 501})
+
+    assert error.value.code == "invalid_message"

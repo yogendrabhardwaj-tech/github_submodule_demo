@@ -43,6 +43,8 @@ jobs:
             !.pytest_cache/
             !local.settings.json.example
             !.gitignore
+            !README.md
+            !.github/
 
   deploy:
     runs-on: ubuntu-latest
