@@ -32,5 +32,5 @@ def validate_echo_payload(payload: dict) -> dict:
 
     return {
         "message": message,
-        "metadata": metadata or {},
+        "metadata": metadata if metadata is not None else {},
     }

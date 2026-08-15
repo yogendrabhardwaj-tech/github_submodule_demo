@@ -38,6 +38,9 @@ jobs:
           path: |
             .
             !.git/
+            !tests/
+            !requirements-dev.txt
+            !.pytest_cache/
 
   deploy:
     runs-on: ubuntu-latest
