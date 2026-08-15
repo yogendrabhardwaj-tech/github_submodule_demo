@@ -1,0 +1,12 @@
+.git*
+.vscode
+.venv
+node_modules
+package.json
+package-lock.json
+local.settings.json
+test
+.pytest_cache
+__pycache__
+*.pyc
+CLAUDE.md

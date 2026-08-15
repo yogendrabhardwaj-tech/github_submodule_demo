@@ -1,0 +1,58 @@
+name: Build and Deploy Azure Functions
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  PYTHON_VERSION: '3.9'
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Resolve project dependencies using pip
+        shell: bash
+        run: |
+          pushd '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt --target=".python_packages/lib/site-packages"
+          popd
+
+      - name: Upload function app package
+        uses: actions/upload-artifact@v4
+        with:
+          name: functionapp-package
+          path: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          retention-days: 1
+
+  deploy-dev:
+    needs: build
+    uses: ./.github/workflows/deploy-function.yml
+    with:
+      environment-name: dev
+    secrets: inherit
+
+  deploy-test:
+    needs: deploy-dev
+    uses: ./.github/workflows/deploy-function.yml
+    with:
+      environment-name: test
+    secrets: inherit
+
+  deploy-prod:
+    needs: deploy-test
+    uses: ./.github/workflows/deploy-function.yml
+    with:
+      environment-name: prod
+    secrets: inherit
