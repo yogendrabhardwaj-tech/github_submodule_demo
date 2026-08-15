@@ -8,8 +8,8 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class Settings:
-    app_name: str = "github_submodule_demo"
+    app_name: str = "azure-functions-app"
 
 
 def get_settings() -> Settings:
-    return Settings(app_name=os.getenv("APP_NAME", "github_submodule_demo"))
+    return Settings(app_name=os.getenv("APP_NAME", "azure-functions-app"))

@@ -52,3 +52,17 @@ def test_echo_rejects_invalid_payload():
     assert response.status_code == 400
     payload = json.loads(response.get_body())
     assert payload["error"]["code"] == "invalid_message"
+
+
+def test_echo_rejects_invalid_metadata():
+    req = func.HttpRequest(
+        method="POST",
+        url="http://localhost/api/echo",
+        body=b'{"message":"hello","metadata":"bad"}',
+    )
+
+    response = echo(req)
+
+    assert response.status_code == 400
+    payload = json.loads(response.get_body())
+    assert payload["error"]["code"] == "invalid_metadata"

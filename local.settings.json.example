@@ -3,6 +3,6 @@
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "python",
-    "APP_NAME": "github_submodule_demo"
+    "APP_NAME": "azure-functions-app"
   }
 }
