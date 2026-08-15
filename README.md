@@ -43,7 +43,7 @@ Run unit tests:
 
 GitHub Actions workflow at:
 
-- `/home/runner/work/github_submodule_demo/github_submodule_demo/.github/workflows/azure-functions.yml`
+- `.github/workflows/azure-functions.yml`
 
 Set these repository secrets before deployment:
 

@@ -1,3 +1,5 @@
+import pytest
+
 from shared.errors import AppError
 from shared.validation import validate_echo_payload
 
@@ -8,16 +10,14 @@ def test_validate_echo_payload_success():
 
 
 def test_validate_echo_payload_rejects_empty_message():
-    try:
+    with pytest.raises(AppError) as error:
         validate_echo_payload({"message": "   "})
-        assert False, "Expected AppError"
-    except AppError as error:
-        assert error.code == "invalid_message"
+
+    assert error.value.code == "invalid_message"
 
 
 def test_validate_echo_payload_rejects_invalid_metadata():
-    try:
+    with pytest.raises(AppError) as error:
         validate_echo_payload({"message": "hello", "metadata": "bad"})
-        assert False, "Expected AppError"
-    except AppError as error:
-        assert error.code == "invalid_metadata"
+
+    assert error.value.code == "invalid_metadata"

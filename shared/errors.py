@@ -3,16 +3,16 @@
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
 
 import azure.functions as func
 
 
-@dataclass(frozen=True)
 class AppError(Exception):
-    code: str
-    message: str
-    status_code: int = 400
+    def __init__(self, code: str, message: str, status_code: int = 400) -> None:
+        self.code = code
+        self.message = message
+        self.status_code = status_code
+        super().__init__(message)
 
 
 def json_response(payload: dict, status_code: int = 200) -> func.HttpResponse:
