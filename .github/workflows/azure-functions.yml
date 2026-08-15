@@ -41,6 +41,8 @@ jobs:
             !tests/
             !requirements-dev.txt
             !.pytest_cache/
+            !local.settings.json.example
+            !.gitignore
 
   deploy:
     runs-on: ubuntu-latest
